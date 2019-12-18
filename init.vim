@@ -26,7 +26,6 @@ set noswapfile 	                            " no swap files
 set nowritebackup                           " only in case you don't want a backup file while editing
 set number
 set number relativenumber                                 " show line numbers
-set relativenumber!
 set ruler
 set scrolloff=50                            " let 10 lines before/after cursor during scroll
 set secure                                  " prohibit .vimrc files to execute shell, create files, etc...
@@ -163,12 +162,8 @@ autocmd QuickFixCmdPost    l* nested lwindow
 
 let makeprg='make'
 
-function! Ntbuild_cmake(target, jobs_count)
-     execute 'Dispatch make' . ' -j ' . a:jobs_count . ' ' . a:target
-endfunction
 
 command! -nargs=* CmakeOwn call Ntbuild_cmake(<f-args>)
-nnoremap <F19> :AbortDispatch<CR>
 
 augroup quickfix
     autocmd!
@@ -433,16 +428,22 @@ au FileType rust nmap <silent> gd :call LanguageClient#textDocument_definition()
 au FileType rust nmap <silent> <leader><Insert> :call LanguageClient_contextMenu()<CR>
 au FileType rust nmap <silent> gr :call LanguageClient#textDocument_rename()<CR>
 
-au FileType rust nmap <F1> :RustFmt<CR>
-au FileType rust nmap <F7> :Dispatch cargo build<CR>
-au FileType rust nmap <F9> :Crun<CR>
+au FileType rust nmap <F1>  :RustFmt<CR>
+au FileType rust nmap <F13> :AbortDispatch<CR>
+
+au FileType rust nmap <F7>  :Dispatch cargo build<CR>
+au FileType rust nmap <F19> :Dispatch cargo build --tests<CR> 
+
+au FileType rust nmap <F9>  :Cargo run<CR>
+au FileType rust nmap <F21> :Dispatch cargo test<CR>
+
 
 "==================================================
 " Fzh mode setting
 "==================================================
 map gd :YcmCompleter GoTo<CR>
 
-nmap <Leader><Leader> :noh<CR>
+nmap <Leader>` :noh<CR>
 nmap <Leader>' :Marks<CR>
 nmap <Leader>; :Buffers<CR>
 nmap <Leader>F :Files<CR>
@@ -477,10 +478,14 @@ nmap <Leader>gc :Gcommit<CR>
 nmap <Leader>gp :Gpush<CR>
 nmap <Leader>gu :Gpull<CR>
 nmap <Leader>gw :Gwrite<CR>
+nmap <Leader>g<S-W> :Gcommit --interactive<CR>
 nmap <Leader>gm <Plug>(git-messenger)
 let g:git_messenger_include_diff = "all"
 
 command! Vimrc :split $MYVIMRC
+command! Tmux  :split | terminal tmux attach;
+
+nmap <Leader>b :Tmux<CR>
 
 nmap <Leader>v :Vimrc<CR>
 nmap <Leader>u :source $MYVIMRC<CR>
