@@ -116,6 +116,7 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.s
 
 ""
 "" --- Rust ---
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'dense-analysis/ale'
@@ -436,6 +437,7 @@ au FileType rust nmap <silent> gr :call LanguageClient#textDocument_rename()<CR>
 au FileType rust nmap <F1> :RustFmt<CR>
 au FileType rust nmap <F7> :Dispatch cargo build<CR>
 au FileType rust nmap <F9> :Crun<CR>
+au FileType rust nmap <F9> :Cargo test<CR>
 
 "==================================================
 " Fzh mode setting
