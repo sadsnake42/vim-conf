@@ -54,37 +54,38 @@ call plug#begin('~/.config/nvim/plugged')
 " Colorscheme
 Plug 'morhetz/gruvbox'
 Plug 'abudden/taghighlight-automirror'
+"
 " ------------------=== Git ===----------------------
 Plug 'Xuyuanp/nerdtree-git-plugin'  
+Plug 'aklt/plantuml-syntax'
 Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'aklt/plantuml-syntax'
 
 " ------------------=== File Navigation ===----------------------
-Plug 'easymotion/vim-easymotion'            
-Plug 'jesseleite/vim-agriculture'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'majutsushi/tagbar' 
-Plug 'mbbill/undotree'
-Plug 'mhinz/vim-startify'
-Plug 'mileszs/ack.vim'
 Plug 'pseewald/nerdtree-tagbar-combined'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'jesseleite/vim-agriculture'
+Plug 'vim-ctrlspace/vim-ctrlspace'
+Plug 'easymotion/vim-easymotion'
+Plug 'thaerkh/vim-indentguides' 
+Plug 'vim-scripts/BufOnly.vim'
+Plug 'vim-scripts/FuzzyFinder'
+Plug 'chaoren/vim-wordmotion'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'thaerkh/vim-indentguides' 
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'vim-ctrlspace/vim-ctrlspace'
-Plug 'vim-scripts/FuzzyFinder'
-Plug 'yegappan/mru'
-Plug 'yuttie/comfortable-motion.vim'
-Plug 'nelstrom/vim-visual-star-search'
-Plug 'vim-scripts/BufOnly.vim'
-Plug 'wellle/targets.vim'
-Plug 'michaeljsmith/vim-indent-object'
+Plug 'mhinz/vim-startify'
 Plug 'rhysd/clever-f.vim'
-Plug 'chaoren/vim-wordmotion'
+Plug 'wellle/targets.vim'
+Plug 'tpope/vim-surround'
+Plug 'majutsushi/tagbar'
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-repeat'
+Plug 'mbbill/undotree'
+Plug 'mileszs/ack.vim'
+Plug 'yegappan/mru'
 
 "------------------=== Other ===---------------------------------
 Plug 'andreshazard/vim-logreview'
@@ -99,25 +100,24 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'	   	" Parent hemes, brackets, Auotes, XML tags, and more<Paste>
 Plug 'vim-airline/vim-airline'   	    	" Lean & mean status/tabline for vim
 Plug 'vim-scripts/AnsiEsc.vim'
+Plug 'kassio/neoterm'
 
 " --- i3 ---
 Plug 'mboughaba/i3config.vim'
-""
+
 ""---------------=== Languages support ===-------------
-""
 Plug 'ycm-core/YouCompleteMe'
 Plug 'vim-scripts/L9'
 Plug 'dbgx/lldb.nvim'
 Plug 'craigemery/vim-autotag'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh', }
 
-""
 "" --- Rust ---
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'dense-analysis/ale'
-"
+
 "" --- Sol ---
 Plug 'tomlion/vim-solidity'
 Plug 'dmdque/solidity.vim'
@@ -277,16 +277,7 @@ let g:DevIconsEnableFolderPatternMatching = 1
 let g:DevIconsEnableFolderExtensionPatternMatching = 0
 
 
-""" ------------------=== abreviation ===-------------------
-"""
-iab prefix! #!/bin/python3.7
-iab ifmain! if __name__ == "__main__"
-iab vpdb! import vimpdb; vimpdb.set_trace()
-"""
-""" # Keymap
-"""
-
-" Работа буфферами
+" Work with buffer
 map <C-q> :wqa!<CR>    " CTRL+q закрыть и сохранить
 
 " TagBar настройки
@@ -350,30 +341,29 @@ let g:syntastic_python_checkers = ['pyflakes']
 " Enable background opacity
 hi Normal guibg=NONE ctermbg=NONE 
 
-no <down> <Nop>
-no <left> <Nop>
+no <down>  <Nop>
+no <left>  <Nop>
 no <right> <Nop>
-no <up> <Nop>
+no <up>    <Nop>
 
-ino <down> <Nop>
-ino <left> <Nop>
+ino <down>  <Nop>
+ino <left>  <Nop>
 ino <right> <Nop>
-ino <up> <Nop>
+ino <up>    <Nop>
 
-vno <down> <Nop>
-vno <left> <Nop>
+vno <down>  <Nop>
+vno <left>  <Nop>
 vno <right> <Nop>
-vno <up> <Nop>
+vno <up>    <Nop>
 
 nnoremap <Right> <C-w>l
-nnoremap <Left> <C-w>h
-nnoremap <Up> <C-w>k
-nnoremap <Down> <C-w>j
+nnoremap <Left>  <C-w>h
+nnoremap <Up>    <C-w>k
+nnoremap <Down>  <C-w>j
 
 nnoremap <A-l> <C-i>
 nnoremap <A-h> <C-o>
 
-set hidden
 nnoremap gn :bnext<CR>
 nnoremap gp :bprev<CR>
 
@@ -446,7 +436,7 @@ map <silent><A-1> :NERDTreeToggle<CR>
 map <silent><A-2> :Tagbar<CR>
 map <silent><A-0> :FocusDispatch<CR>
 
-nnoremap s "_d
+nnoremap s "+d
 
 map  <Leader>n <Plug>(easymotion-bd-jk)
 map  <Leader>w <Plug>(easymotion-bd-w)
