@@ -3,11 +3,11 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 set guifont=Fura\ Code\ Medium\ Nerd\ Font\ 40
 set timeoutlen=1000 ttimeoutlen=0
+set backspace=indent,eol,start              " backspace removes all (indents, EOLs, start) What is start?
+set keymap=russian-jcukenwin
 set t_Co=256
 set ttyfast                                 " terminal acceleration
-set keymap=russian-jcukenwin
 set autoindent                             " indent when moving to the next line while writing code
-set backspace=indent,eol,start              " backspace removes all (indents, EOLs, start) What is start?
 set confirm
 set enc=utf-8	                            " utf-8 by default
 set encoding=utf8
@@ -178,8 +178,7 @@ nnoremap <Leader>r :set relativenumber!<CR>
 "=====================================================
 "" Search settings
 "=====================================================
-set incsearch	                            " incremental search
-set hlsearch	                            " highlight search results
+set incsearch " incremental search
 
 "=====================================================
 "" Comfortable Motion Settings
@@ -436,12 +435,19 @@ map <silent><A-1> :NERDTreeToggle<CR>
 map <silent><A-2> :Tagbar<CR>
 map <silent><A-0> :FocusDispatch<CR>
 
-nnoremap s "+d
+nnoremap s "+y
 
 map  <Leader>n <Plug>(easymotion-bd-jk)
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>n <Plug>(easymotion-overwin-line)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 nmap <Leader>/ :Rg<Space>
 
