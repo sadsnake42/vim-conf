@@ -148,6 +148,7 @@ let g:Powerline_symbols='unicode' "Поддержка unicode
 let g:clever_f_across_no_line    = 1
 let g:clever_f_fix_key_direction = 1
 let g:clever_f_timeout_ms        = 3000
+let g:clever_f_smart_case        = 1
 
 "=====================================================
 "" Tabs / Buffers settings
@@ -458,13 +459,17 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 nnoremap <Leader>* :Lines <C-r><C-w><CR>
 nnoremap <Leader># :Rg <C-r><C-w><CR>
 
-nmap <Leader>gb :Gblame<CR>
-nmap <Leader>gc :Gcommit<CR>
-nmap <Leader>gp :Gpush<CR>
-nmap <leader>gu :gpull<cr>
-nmap <leader>gw :gwrite<cr>
+nmap <Leader>gb     :Gblame<CR>
+nmap <Leader>gc     :Gcommit<CR>
+
+nmap <Leader>gs     :Gdiffsplit master<CR>
+
+nmap <Leader>gp     :Gpush<CR>
+nmap <Leader>g<S-P> :Gpull<CR>
+nmap <Leader>gw     :Gwrite<CR>
 nmap <Leader>g<S-W> :Gcommit --interactive<CR>
-nmap <Leader>gm <Plug>(git-messenger)
+
+nmap <Leader>gm     <Plug>(git-messenger)
 let g:git_messenger_include_diff = "all"
 
 command! Vimrc :split $MYVIMRC
