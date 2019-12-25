@@ -36,6 +36,7 @@ set spell
 set tabstop=4                               " 4 whitespaces for tabs visual presentation
 set undofile
 set nowrap linebreak nolist
+set nohlsearch
 
 
 " Underline current cursor line
