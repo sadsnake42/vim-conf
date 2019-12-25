@@ -4,8 +4,8 @@ filetype off                  " required
 set guifont=Fura\ Code\ Medium\ Nerd\ Font\ 40
 set timeoutlen=1000 ttimeoutlen=0
 set t_Co=256
+set ttyfast                                 " terminal acceleration
 set keymap=russian-jcukenwin
-
 set autoindent                             " indent when moving to the next line while writing code
 set backspace=indent,eol,start              " backspace removes all (indents, EOLs, start) What is start?
 set confirm
@@ -34,11 +34,10 @@ set showmatch                               " shows matching part of bracket pai
 set smarttab                                " set tabs for a shifttabs logic
 set spell
 set tabstop=4                               " 4 whitespaces for tabs visual presentation
-set ttyfast                                 " terminal acceleration
 set undofile
 set nowrap linebreak nolist
 
-"
+
 " Underline current cursor line
 set cursorline
 hi clear CursorLine
@@ -144,11 +143,12 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_powerline_fonts = 1 "Включить поддержку Powerline шрифтов
 let g:airline#extensions#keymap#enabled = 0 "Не показывать текущий маппинг
 let g:Powerline_symbols='unicode' "Поддержка unicode
-"
+
 "Clever-f
 let g:clever_f_across_no_line    = 1
 let g:clever_f_fix_key_direction = 1
 let g:clever_f_timeout_ms        = 3000
+
 "=====================================================
 "" Tabs / Buffers settings
 "=====================================================
@@ -156,15 +156,13 @@ tab sball
 set switchbuf=useopen
 set laststatus=2
 
-"CMAKE
+" Cmake
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
 let makeprg='make'
 
-
 command! -nargs=* CmakeOwn call Ntbuild_cmake(<f-args>)
-nnoremap <F19> :AbortDispatch<CR>
 
 augroup quickfix
     autocmd!
@@ -288,23 +286,10 @@ iab vpdb! import vimpdb; vimpdb.set_trace()
 """
 
 " Работа буфферами
-map <C-q> :wqa!<CR> 	   " CTRL+q закрыть и сохранить
+map <C-q> :wqa!<CR>    " CTRL+q закрыть и сохранить
 
-" Pytest
 " TagBar настройки
-let g:tagbar_autofocus = 0 
-
-
-" Move to line
-
-au FileType python nnoremap <F12> :split \| terminal ipython --pdb -i %<CR> <C-W>J :resize 10 <CR>i
-
-"
-" # Python hotkeys
-"
-au FileType python nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<CR>
-inoremap <C-space> <C-x><C-o>
-autocmd FileType python map <buffer> <leader>8 :PymodeLint<CR>
+let g:tagbar_autofocus = 0
 
 "=====================================================
 " Python-mode settings
@@ -317,7 +302,6 @@ let g:loaded_python_provider = 1
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
 let g:pymode_rope_complete_on_dot = 0
-
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -399,15 +383,16 @@ nnoremap <F5> :UndotreeToggle<cr>
 " C++ mode setting
 "==================================================
 
-
 let g:rainbow_active = 1
 
 augroup project
     autocmd!
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
 augroup END
+
 let g:ConqueTerm_StartMessages = 0
 let g:ConqueTerm_CloseOnEnd = 0
+
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
   source ~/.vimrc_background
@@ -476,8 +461,8 @@ nnoremap <Leader># :Rg <C-r><C-w><CR>
 nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gc :Gcommit<CR>
 nmap <Leader>gp :Gpush<CR>
-nmap <Leader>gu :Gpull<CR>
-nmap <Leader>gw :Gwrite<CR>
+nmap <leader>gu :gpull<cr>
+nmap <leader>gw :gwrite<cr>
 nmap <Leader>g<S-W> :Gcommit --interactive<CR>
 nmap <Leader>gm <Plug>(git-messenger)
 let g:git_messenger_include_diff = "all"
