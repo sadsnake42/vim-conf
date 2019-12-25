@@ -37,21 +37,21 @@ set undofile
 set nowrap linebreak nolist
 set nohlsearch
 
-
 " Underline current cursor line
 set cursorline
 hi clear CursorLine
 hi CursorLine gui=underline cterm=underline
-"
+
 highlight LineNr ctermfg=grey
 highlight lCursor guifg=NONE guibg=Cyan
+
 augroup CustomCursorLine
-au!
-au ColorScheme * :hi! CursorLine gui=underline cterm=underline
+    au!
+    au ColorScheme * :hi! CursorLine gui=underline cterm=underline
 augroup END
 
 call plug#begin('~/.config/nvim/plugged')
-" Colorscheme
+" ------------------=== Colorscheme ===----------------------
 Plug 'morhetz/gruvbox'
 Plug 'abudden/taghighlight-automirror'
 "
@@ -435,7 +435,7 @@ map <silent><A-0> :FocusDispatch<CR>
 
 nnoremap <M-y> "+y
 nnoremap <M-d> "+d
-nnoremap <M-p> "+p
+nnoremap <M-p> "+d
 
 map  <Leader>n <Plug>(easymotion-bd-jk)
 map  <Leader>w <Plug>(easymotion-bd-w)
