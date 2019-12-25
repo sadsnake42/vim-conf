@@ -446,7 +446,7 @@ map <silent><A-1> :NERDTreeToggle<CR>
 map <silent><A-2> :Tagbar<CR>
 map <silent><A-0> :FocusDispatch<CR>
 
-nmap s <Plug>(easymotion-overwin-f2)
+nnoremap s "_d
 
 map  <Leader>n <Plug>(easymotion-bd-jk)
 map  <Leader>w <Plug>(easymotion-bd-w)
