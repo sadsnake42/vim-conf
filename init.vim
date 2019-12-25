@@ -24,7 +24,6 @@ set nobackup 	                            " no backup files
 set nofoldenable
 set noswapfile 	                            " no swap files
 set nowritebackup                           " only in case you don't want a backup file while editing
-set number
 set number relativenumber                                 " show line numbers
 set ruler
 set scrolloff=50                            " let 10 lines before/after cursor during scroll
@@ -115,6 +114,7 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.s
 
 ""
 "" --- Rust ---
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'dense-analysis/ale'
@@ -164,6 +164,7 @@ let makeprg='make'
 
 
 command! -nargs=* CmakeOwn call Ntbuild_cmake(<f-args>)
+nnoremap <F19> :AbortDispatch<CR>
 
 augroup quickfix
     autocmd!
@@ -436,7 +437,6 @@ au FileType rust nmap <F19> :Dispatch cargo build --tests<CR>
 
 au FileType rust nmap <F9>  :Cargo run<CR>
 au FileType rust nmap <F21> :Dispatch cargo test<CR>
-
 
 "==================================================
 " Fzh mode setting
