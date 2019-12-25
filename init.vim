@@ -22,8 +22,7 @@ set imsearch=0
 set laststatus=2
 set nobackup 	                            " no backup files
 set nofoldenable
-set noswapfile 	                            " no swap files
-set nowritebackup                           " only in case you don't want a backup file while editing
+set noswapfile 	                            " no swap files set nowritebackup                           " only in case you don't want a backup file while editing
 set number relativenumber                                 " show line numbers
 set ruler
 set scrolloff=50                            " let 10 lines before/after cursor during scroll
@@ -393,9 +392,7 @@ endif
 " Rust mode setting
 "==================================================
 
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rls'],
-    \ }
+let g:LanguageClient_serverCommands = { 'rust': ['rls'], }
 
 let g:racer_cmd = "/home/sad/.cargo/bin/racer"
 let g:racer_experimental_completer = 1
@@ -417,9 +414,9 @@ au FileType rust nmap <F21> :Dispatch cargo test<CR>
 "==================================================
 " Fzh mode setting
 "==================================================
+
 map gd :YcmCompleter GoTo<CR>
 
-nmap <Leader>` :noh<CR>
 nmap <Leader>' :Marks<CR>
 nmap <Leader>; :Buffers<CR>
 nmap <Leader>F :Files<CR>
@@ -436,7 +433,9 @@ map <silent><A-1> :NERDTreeToggle<CR>
 map <silent><A-2> :Tagbar<CR>
 map <silent><A-0> :FocusDispatch<CR>
 
-nnoremap s "+y
+nnoremap <M-y> "+y
+nnoremap <M-d> "+d
+nnoremap <M-p> "+p
 
 map  <Leader>n <Plug>(easymotion-bd-jk)
 map  <Leader>w <Plug>(easymotion-bd-w)
