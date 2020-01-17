@@ -487,6 +487,9 @@ nnoremap Q @@
 map ; <Plug>(clever-f-repeat-forward)
 map , <Plug>(clever-f-repeat-back)
 
+nnoremap <Leader>] :cnext<CR>
+nnoremap <Leader>[ :cp<CR>
+
 let g:cargo_command = "Dispatch cargo {cmd}"
 
 let g:ale_rust_rusfmt_options = ''
