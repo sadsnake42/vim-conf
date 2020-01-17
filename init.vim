@@ -408,6 +408,8 @@ au FileType rust nmap <F13> :AbortDispatch<CR>
 au FileType rust nmap <F7>  :Dispatch cargo build<CR>
 au FileType rust nmap <F19> :Dispatch cargo build --tests<CR> 
 
+au FileType rust nmap <F8>  :Dispatch cargo clippy<CR>
+
 au FileType rust nmap <F9>  :Cargo run<CR>
 au FileType rust nmap <F21> :Dispatch cargo test<CR>
 
