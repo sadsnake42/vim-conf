@@ -95,10 +95,10 @@ Plug 'godlygeek/tabular'
 Plug 'junegunn/vim-easy-align'
 Plug 'luochen1990/rainbow'
 Plug 'mattn/emmet-vim'
-Plug 'ryanoasis/vim-devicons' 
+Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-surround'	   	" Parent hemes, brackets, Auotes, XML tags, and more<Paste>
-Plug 'vim-airline/vim-airline'   	    	" Lean & mean status/tabline for vim
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'kassio/neoterm'
 
@@ -110,7 +110,11 @@ Plug 'ycm-core/YouCompleteMe'
 Plug 'vim-scripts/L9'
 Plug 'dbgx/lldb.nvim'
 Plug 'craigemery/vim-autotag'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh', }
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
 
 "" --- Rust ---
 Plug 'AndrewRadev/splitjoin.vim'
@@ -393,6 +397,7 @@ endif
 "==================================================
 
 let g:LanguageClient_serverCommands = { 'rust': ['rls'], }
+let g:LanguageClient_autoStart = 1
 
 let g:racer_cmd = "/home/sad/.cargo/bin/racer"
 let g:racer_experimental_completer = 1
@@ -407,11 +412,13 @@ au FileType rust nmap <F13> :AbortDispatch<CR>
 
 au FileType rust nmap <F7>  :Dispatch cargo build<CR>
 au FileType rust nmap <F19> :Dispatch cargo build --tests<CR> 
+au FileType rust nmap <F31> :Dispatch cargo build --release<CR> 
 
 au FileType rust nmap <F8>  :Dispatch cargo clippy<CR>
 
 au FileType rust nmap <F9>  :Cargo run<CR>
 au FileType rust nmap <F21> :Dispatch cargo test<CR>
+au FileType rust nmap <F33> :Dispatch cargo bench<CR>
 
 "==================================================
 " Fzh mode setting
@@ -459,6 +466,7 @@ nnoremap <Leader># :Rg <C-r><C-w><CR>
 
 nmap <Leader>gb     :Gblame<CR>
 nmap <Leader>gc     :Gcommit<CR>
+nmap <Leader>gC     :Gcommit --amend<CR>
 
 nmap <Leader>gs     :Gdiffsplit master<CR>
 
