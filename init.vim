@@ -412,13 +412,15 @@ au FileType rust nmap <F13> :AbortDispatch<CR>
 
 au FileType rust nmap <F7>  :Dispatch cargo build<CR>
 au FileType rust nmap <F19> :Dispatch cargo build --tests<CR> 
-au FileType rust nmap <F31> :Dispatch cargo build --release<CR> 
+au FileType rust nmap <F31> :Dispatch cargo build --release --tests<CR> 
 
-au FileType rust nmap <F8>  :Dispatch cargo clippy<CR>
+au FileType rust nmap <F4>  :Dispatch cargo clippy<CR>
+
+au FileType rust nmap <F6>  :Dispatch cargo test<CR>
+au FileType rust nmap <F18> :Dispatch cargo bench<CR>
 
 au FileType rust nmap <F9>  :Cargo run<CR>
-au FileType rust nmap <F21> :Dispatch cargo test<CR>
-au FileType rust nmap <F33> :Dispatch cargo bench<CR>
+au FileType rust nmap <F21> :Cargo run --release<CR>
 
 "==================================================
 " Fzh mode setting
