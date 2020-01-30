@@ -1,7 +1,9 @@
 set nocompatible              " be iMproved, required
-
+set encoding=utf8
+set fileencoding=utf-8
+scriptencoding utf-8
 filetype off                  " required
-set guifont=Fura\ Code\ Medium\ Nerd\ Font\ 40
+set guifont=Fura\ Code\ Medium\ Nerd\ Font\ 20
 set timeoutlen=1000 ttimeoutlen=0
 set backspace=indent,eol,start              " backspace removes all (indents, EOLs, start) What is start?
 set keymap=russian-jcukenwin
@@ -10,7 +12,6 @@ set ttyfast                                 " terminal acceleration
 set autoindent                             " indent when moving to the next line while writing code
 set confirm
 set enc=utf-8	                            " utf-8 by default
-set encoding=utf8
 set expandtab                               " expand tabs into spaces
 set exrc                                    " enable usage of additional .vimrc files from working directory
 set foldlevel=1
@@ -396,7 +397,7 @@ endif
 " Rust mode setting
 "==================================================
 
-let g:LanguageClient_serverCommands = { 'rust': ['rls'], }
+let g:LanguageClient_serverCommands = { 'rust': ['~/.cargo/bin/ra_lsp_server'], }
 let g:LanguageClient_autoStart = 1
 
 let g:racer_cmd = "/home/sad/.cargo/bin/racer"
@@ -500,6 +501,22 @@ map , <Plug>(clever-f-repeat-back)
 nnoremap <Leader>] :cnext<CR>
 nnoremap <Leader>[ :cp<CR>
 
+command! SaveAndLeft  :mksession! | qa
+nnoremap <Leader>q :SaveAndLeft<CR>
+
 let g:cargo_command = "Dispatch cargo {cmd}"
 
 let g:ale_rust_rusfmt_options = ''
+
+function QfMakeConv()
+   let qflist = getqflist()
+   for i in qflist
+      let i.text = iconv(i.text, "cp936", "utf-8")
+   endfor
+   call setqflist(qflist)
+endfunction
+
+au QuickfixCmdPost make call QfMakeConv()
+
+" Terminal mode binding
+tnoremap <F3> <C-\><C-n>
