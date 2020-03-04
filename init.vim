@@ -404,6 +404,10 @@ let g:racer_cmd = "/home/sad/.cargo/bin/racer"
 let g:racer_experimental_completer = 1
 let g:racer_insert_paren = 1
 
+"==================================================
+" Rust cargo
+"==================================================
+
 au FileType rust nmap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 au FileType rust nmap <silent> <leader><Insert> :call LanguageClient_contextMenu()<CR>
 au FileType rust nmap <silent> gr :call LanguageClient#textDocument_rename()<CR>
@@ -424,30 +428,25 @@ au FileType rust nmap <F9>  :Cargo run<CR>
 au FileType rust nmap <F21> :Cargo run --release<CR>
 
 "==================================================
-" Fzh mode setting
+" NERD Tree and Tagbar
 "==================================================
-
-map gd :YcmCompleter GoTo<CR>
-
-nmap <Leader>' :Marks<CR>
-nmap <Leader>; :Buffers<CR>
-nmap <Leader>F :Files<CR>
-nmap <Leader>L :Lines<CR>
-nmap <Leader>T :Tags<CR>
-nmap <Leader>c :BCommits<CR>
-nmap <Leader>f :GFiles<CR>
-nmap <Leader>h :History<CR>
-nmap <Leader>l :BLines<CR>
-nmap <Leader>t :BTags<CR>
 
 map <silent><A-!> :NERDTreeFind<CR>
 map <silent><A-1> :NERDTreeToggle<CR>
 map <silent><A-2> :Tagbar<CR>
 map <silent><A-0> :FocusDispatch<CR>
 
+"==================================================
+" Copy system clipboard
+"==================================================
+
 nnoremap <M-y> "+y
 nnoremap <M-d> "+d
 nnoremap <M-p> "+d
+
+"==================================================
+" Easymotion
+"==================================================
 
 map  <Leader>n <Plug>(easymotion-bd-jk)
 map  <Leader>w <Plug>(easymotion-bd-w)
@@ -467,6 +466,9 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 nnoremap <Leader>* :Lines <C-r><C-w><CR>
 nnoremap <Leader># :Rg <C-r><C-w><CR>
 
+"==================================================
+" Git binding
+"==================================================
 nmap <Leader>gb     :Gblame<CR>
 nmap <Leader>gc     :Gcommit<CR>
 nmap <Leader>gC     :Gcommit --amend<CR>
@@ -482,9 +484,10 @@ nmap <Leader>gm     <Plug>(git-messenger)
 let g:git_messenger_include_diff = "all"
 
 command! Vimrc :split $MYVIMRC
-command! Tmux  :split | terminal tmux attach;
+command! Tmux  :split | <C-W>j | terminal tmux attach;
 
 nmap <Leader>b :Tmux<CR>
+nmap <Leader>a :terminal<CR>
 
 nmap <Leader>v :Vimrc<CR>
 nmap <Leader>u :source $MYVIMRC<CR>
@@ -520,3 +523,20 @@ au QuickfixCmdPost make call QfMakeConv()
 
 " Terminal mode binding
 tnoremap <F3> <C-\><C-n>
+
+"==================================================
+" Fzh mode setting
+"==================================================
+
+map gd :YcmCompleter GoTo<CR>
+
+nmap <Leader>' :Marks<CR>
+nmap <Leader>; :Buffers<CR>
+nmap <Leader>F :Files<CR>
+nmap <Leader>L :Lines<CR>
+nmap <Leader>T :Tags<CR>
+nmap <Leader>c :BCommits<CR>
+nmap <Leader>f :GFiles<CR>
+nmap <Leader>h :History<CR>
+nmap <Leader>l :BLines<CR>
+nmap <Leader>t :BTags<CR>
