@@ -1,3 +1,5 @@
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+set spelllang=en,ru
 set nocompatible              " be iMproved, required
 set encoding=utf8
 set fileencoding=utf-8
@@ -6,7 +8,7 @@ filetype off                  " required
 set guifont=Fura\ Code\ Medium\ Nerd\ Font\ 20
 set timeoutlen=1000 ttimeoutlen=0
 set backspace=indent,eol,start              " backspace removes all (indents, EOLs, start) What is start?
-set keymap=russian-jcukenwin
+"set keymap=russian-jcukenwin
 set t_Co=256
 set ttyfast                                 " terminal acceleration
 set autoindent                             " indent when moving to the next line while writing code
@@ -37,6 +39,8 @@ set tabstop=4                               " 4 whitespaces for tabs visual pres
 set undofile
 set nowrap linebreak nolist
 set nohlsearch
+set conceallevel=1
+set incsearch " incremental search
 
 " Underline current cursor line
 set cursorline
@@ -52,96 +56,96 @@ augroup CustomCursorLine
 augroup END
 
 call plug#begin('~/.config/nvim/plugged')
-" ------------------=== Colorscheme ===----------------------
+"" ------------------=== Colorscheme ===----------------------
 Plug 'morhetz/gruvbox'
-Plug 'abudden/taghighlight-automirror'
-"
-" ------------------=== Git ===----------------------
+
+"" ------------------=== Git ===----------------------
 Plug 'Xuyuanp/nerdtree-git-plugin'  
-Plug 'aklt/plantuml-syntax'
 Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-fugitive'
-
-" ------------------=== File Navigation ===----------------------
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'pseewald/nerdtree-tagbar-combined'
+Plug 'ruanyl/vim-gh-line'
+"
+"" ------------------=== File Navigation ===----------------------
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'jesseleite/vim-agriculture'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'bronson/vim-visual-star-search'
 Plug 'yuttie/comfortable-motion.vim'
-Plug 'jesseleite/vim-agriculture'
 Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'easymotion/vim-easymotion'
 Plug 'thaerkh/vim-indentguides' 
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/FuzzyFinder'
 Plug 'chaoren/vim-wordmotion'
-Plug 'rbgrouleff/bclose.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
 Plug 'rhysd/clever-f.vim'
 Plug 'wellle/targets.vim'
 Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar'
-Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-repeat'
 Plug 'mbbill/undotree'
-Plug 'mileszs/ack.vim'
-Plug 'yegappan/mru'
+"Plug 'mileszs/ack.vim' // don't work
 
-"------------------=== Other ===---------------------------------
-Plug 'andreshazard/vim-logreview'
-Plug 'chriskempson/base16-vim'
+"------------------=== Latex ===---------------------------------
+Plug 'lervag/vimtex'
+"Plug 'sirver/ultisnips'
+"Plug 'honza/vim-snippets'
+"
+""------------------=== Other ===---------------------------------
 Plug 'elzr/vim-json'
 Plug 'godlygeek/tabular'
 Plug 'junegunn/vim-easy-align'
 Plug 'luochen1990/rainbow'
-Plug 'mattn/emmet-vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'kassio/neoterm'
+Plug 'rhysd/vim-clang-format'
 
 " --- i3 ---
 Plug 'mboughaba/i3config.vim'
 
-""---------------=== Languages support ===-------------
+"""---------------=== Languages support ===-------------
 Plug 'ycm-core/YouCompleteMe'
 Plug 'vim-scripts/L9'
-Plug 'dbgx/lldb.nvim'
-Plug 'craigemery/vim-autotag'
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-
-
-"" --- Rust ---
-Plug 'AndrewRadev/splitjoin.vim'
+"
+"
+""" --- Rust ---
+"Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
-Plug 'dense-analysis/ale'
-
-"" --- Sol ---
-Plug 'tomlion/vim-solidity'
-Plug 'dmdque/solidity.vim'
-Plug 'leafgarland/typescript-vim'
+"Plug 'racer-rust/vim-racer'
+"Plug 'dense-analysis/ale'
+Plug 'mattn/webapi-vim'
+"
+""" --- Python ---
+""Plug 'davidhalter/jedi-vim'
+"
 call plug#end()
 
 colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_termcolors=16
+"
 filetype on
 filetype plugin on
 filetype plugin indent on
-
-"
-" Main setting
-"
 syntax enable                               " enable syntax highlighting
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+let g:tex_conceal='abdmg'
 
-"
 " Vim-Airline
-"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
@@ -156,34 +160,20 @@ let g:clever_f_timeout_ms        = 3000
 let g:clever_f_smart_case        = 1
 
 "=====================================================
-"" Tabs / Buffers settings
+" Tabs / Buffers settings
 "=====================================================
+
 tab sball
 set switchbuf=useopen
 set laststatus=2
-
-" Cmake
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-
-let makeprg='make'
-
-command! -nargs=* CmakeOwn call Ntbuild_cmake(<f-args>)
 
 augroup quickfix
     autocmd!
     autocmd FileType qf setlocal nowrap
 augroup END
 
-"=====================================================
-"" Relative Numbering 
-"=====================================================
-nnoremap <Leader>r :set relativenumber!<CR>
-
-"=====================================================
-"" Search settings
-"=====================================================
-set incsearch " incremental search
+" Enable background opacity
+hi Normal guibg=NONE ctermbg=NONE 
 
 "=====================================================
 "" Comfortable Motion Settings
@@ -229,9 +219,8 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
-
 "=====================================================
-"" DevIcon Settings
+" DevIcon Settings
 "=====================================================
 " loading the plugin 
 let g:webdevicons_enable = 1
@@ -280,70 +269,7 @@ let g:DevIconsEnableFolderPatternMatching = 1
 " enable file extension pattern matching glyphs on folder/directory (disabled by default with 0)
 let g:DevIconsEnableFolderExtensionPatternMatching = 0
 
-
-" Work with buffer
-map <C-q> :wqa!<CR>    " CTRL+q закрыть и сохранить
-
-" TagBar настройки
 let g:tagbar_autofocus = 0
-
-"=====================================================
-" Python-mode settings
-"=====================================================
-" отключаем автокомплит по коду (у нас вместо него используется jedi-vim)
-let g:pudb_python_launcher = '/usr/bin/python3.7'
-
-let g:loaded_python_provider = 1
-
-let g:pymode_rope = 0
-let g:pymode_rope_completion = 0
-let g:pymode_rope_complete_on_dot = 0
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs=1
-
-" документация
-let g:pymode_python = 'python3'
-let g:pymode_doc = 0
-let g:pymode_doc_key = 'K'
-" проверка кода
-let g:pymode_lint = 1
-let g:pymode_lint_checker = "pyflakes,pep8"
-let g:pymode_lint_ignore="E501,W601,C0110"
-" провека кода после сохранения
-let g:pymode_lint_write = 0
-
-" поддержка virtualenv
-let g:pymode_virtualenv = 1
-
-" установка breakpoints
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_key = '<leader>b'
-
-" подстветка синтаксиса
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-" отключить autofold по коду
-let g:pymode_folding = 0
-
-" возможность запускать код
-let g:pymode_run = 0
-
-" Disable choose first function/method at autocomplete
-let g:jedi#popup_select_first = 0
-
-let g:jedi#use_tabs_not_buffers = 1
-
-let g:syntastic_python_checkers = ['pyflakes']
-
-" Enable background opacity
-hi Normal guibg=NONE ctermbg=NONE 
 
 no <down>  <Nop>
 no <left>  <Nop>
@@ -368,49 +294,35 @@ nnoremap <Down>  <C-w>j
 nnoremap <A-l> <C-i>
 nnoremap <A-h> <C-o>
 
-nnoremap gn :bnext<CR>
-nnoremap gp :bprev<CR>
-
 nnoremap H ^
-nnoremap <F5> :UndotreeToggle<cr>
 
-"==================================================
-" C++ mode setting
-"==================================================
-
-let g:rainbow_active = 1
-
-augroup project
-    autocmd!
-    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
-augroup END
-
-let g:ConqueTerm_StartMessages = 0
-let g:ConqueTerm_CloseOnEnd = 0
-
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 "==================================================
 " Rust mode setting
 "==================================================
 
-let g:LanguageClient_serverCommands = { 'rust': ['~/.cargo/bin/ra_lsp_server'], }
+let g:LanguageClient_serverCommands = { 
+    \ 'rust': ['~/.cargo/bin/rust-analyzer'],
+    \ 'python': ['python', '-m', 'pyls'],
+    \ 'cpp': ['cquery'],
+    \ 'c': ['cquery']
+    \ }
+
 let g:LanguageClient_autoStart = 1
+let g:rust_clip_command = 'xclip -selection clipboard'
 
 let g:racer_cmd = "/home/sad/.cargo/bin/racer"
 let g:racer_experimental_completer = 1
 let g:racer_insert_paren = 1
 
-"==================================================
-" Rust cargo
-"==================================================
+nmap <silent> <leader><Insert> :call LanguageClient_contextMenu()<CR>
+let g:cargo_command = "Dispatch cargo {cmd}"
+let g:nvimgdb_disable_start_keymaps=1
 
 au FileType rust nmap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-au FileType rust nmap <silent> <leader><Insert> :call LanguageClient_contextMenu()<CR>
 au FileType rust nmap <silent> gr :call LanguageClient#textDocument_rename()<CR>
+au FileType rust nmap <silent> <leader>- :call LanguageClient#textDocument_codeAction()<CR>
 
 au FileType rust nmap <F1>  :RustFmt<CR>
 au FileType rust nmap <F13> :AbortDispatch<CR>
@@ -425,77 +337,64 @@ au FileType rust nmap <F6>  :Dispatch cargo test<CR>
 au FileType rust nmap <F18> :Dispatch cargo bench<CR>
 
 au FileType rust nmap <F9>  :Cargo run<CR>
-au FileType rust nmap <F21> :Cargo run --release<CR>
+au FileType rust nmap <F21> :GdbStart rust-gdb ./target/debug/
 
-"==================================================
-" NERD Tree and Tagbar
-"==================================================
+au FileType rust nmap <F8>  :GdbBreakpointToggle<CR>
+au FileType rust nmap <F20> :GdbBreakpointClearAll<CR>
 
-map <silent><A-!> :NERDTreeFind<CR>
-map <silent><A-1> :NERDTreeToggle<CR>
-map <silent><A-2> :Tagbar<CR>
-map <silent><A-0> :FocusDispatch<CR>
+au FileType rust nmap <F10> :GdbNext<CR>
+au FileType rust nmap <F22> :GdbStep<CR>
 
-"==================================================
-" Copy system clipboard
-"==================================================
+au FileType rust nmap <F11> :GdbContinue<CR>
+au FileType rust nmap <F23> :GdbUntil<CR>
+au FileType rust nmap <F12> :GdbFinish<CR>
 
-nnoremap <M-y> "+y
-nnoremap <M-d> "+d
-nnoremap <M-p> "+d
+au FileType rust nmap <A-1> :NERDTreeToggle<CR>
+au FileType rust nmap <A-2> :TagbarToggle<CR>
+au FileType rust nmap <A-3> :GdbCreateWatch info locals<CR>
 
-"==================================================
-" Easymotion
-"==================================================
+""==================================================
+"" Fzh mode setting
+""==================================================
+"
+"map gd :YcmCompleter GoTo<CR>
 
 map  <Leader>n <Plug>(easymotion-bd-jk)
 map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>n <Plug>(easymotion-overwin-line)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+nmap <Leader>' :Marks<CR>
+nmap <Leader>; :Buffers<CR>
+nmap <Leader>F :Files<CR>
+nmap <Leader>L :Lines<CR>
+nmap <Leader>T :Tags<CR>
+nmap <Leader>c :BCommits<CR>
+nmap <Leader>f :GFiles<CR>
+nmap <Leader>h :History<CR>
+nmap <Leader>l :BLines<CR>
+nmap <Leader>t :BTags<CR>
+nmap <Leader>/ :Rg<Space>
 
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
 
-let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-
-nmap <Leader>/ :Rg<Space>
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 nnoremap <Leader>* :Lines <C-r><C-w><CR>
 nnoremap <Leader># :Rg <C-r><C-w><CR>
 
-"==================================================
-" Git binding
-"==================================================
 nmap <Leader>gb     :Gblame<CR>
 nmap <Leader>gc     :Gcommit<CR>
-nmap <Leader>gC     :Gcommit --amend<CR>
-
 nmap <Leader>gs     :Gdiffsplit master<CR>
-
-nmap <Leader>gp     :Gpush<CR>
+nmap <Leader>gp     :terminal git push<CR>
 nmap <Leader>g<S-P> :Gpull<CR>
 nmap <Leader>gw     :Gwrite<CR>
 nmap <Leader>g<S-W> :Gcommit --interactive<CR>
-
 nmap <Leader>gm     <Plug>(git-messenger)
+
 let g:git_messenger_include_diff = "all"
-
-command! Vimrc :split $MYVIMRC
-command! Tmux  :split | <C-W>j | terminal tmux attach;
-
-nmap <Leader>b :Tmux<CR>
-nmap <Leader>a :terminal<CR>
-
-nmap <Leader>v :Vimrc<CR>
-nmap <Leader>u :source $MYVIMRC<CR>
-
-nnoremap <silent> <Leader>= :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
-nnoremap <silent> <Leader>+ :exe "vertical resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>_ :exe "resize " . (winheight(0) * 2/3)<CR>
 
 nnoremap Q @@
 map ; <Plug>(clever-f-repeat-forward)
@@ -503,13 +402,6 @@ map , <Plug>(clever-f-repeat-back)
 
 nnoremap <Leader>] :cnext<CR>
 nnoremap <Leader>[ :cp<CR>
-
-command! SaveAndLeft  :mksession! | qa
-nnoremap <Leader>q :SaveAndLeft<CR>
-
-let g:cargo_command = "Dispatch cargo {cmd}"
-
-let g:ale_rust_rusfmt_options = ''
 
 function QfMakeConv()
    let qflist = getqflist()
@@ -521,22 +413,19 @@ endfunction
 
 au QuickfixCmdPost make call QfMakeConv()
 
-" Terminal mode binding
+"" Terminal mode binding
+nnoremap <leader><F3> :terminal<CR>i
 tnoremap <F3> <C-\><C-n>
+"" latex
+autocmd Filetype tex setl updatetime=1
+let g:livepreview_previewer = 'zathura'
+set conceallevel=0
+let g:tex_conceal='abdmg'
 
-"==================================================
-" Fzh mode setting
-"==================================================
-
-map gd :YcmCompleter GoTo<CR>
-
-nmap <Leader>' :Marks<CR>
-nmap <Leader>; :Buffers<CR>
-nmap <Leader>F :Files<CR>
-nmap <Leader>L :Lines<CR>
-nmap <Leader>T :Tags<CR>
-nmap <Leader>c :BCommits<CR>
-nmap <Leader>f :GFiles<CR>
-nmap <Leader>h :History<CR>
-nmap <Leader>l :BLines<CR>
-nmap <Leader>t :BTags<CR>
+" ============
+" GITHUB
+" ============
+let g:gh_line_map_default = 0
+let g:gh_line_blame_map_default = 1
+let g:gh_line_map = '<leader>gh'
+let g:gh_open_command = 'qutebrowser '
