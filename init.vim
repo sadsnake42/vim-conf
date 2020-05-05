@@ -10,8 +10,7 @@ set timeoutlen=1000 ttimeoutlen=0
 set backspace=indent,eol,start              " backspace removes all (indents, EOLs, start) What is start?
 "set keymap=russian-jcukenwin
 set t_Co=256
-set ttyfast                                 " terminal acceleration
-set autoindent                             " indent when moving to the next line while writing code
+set ttyfast                                 " terminal acceleration set autoindent                             " indent when moving to the next line while writing code
 set confirm
 set enc=utf-8	                            " utf-8 by default
 set expandtab                               " expand tabs into spaces
@@ -297,6 +296,14 @@ nnoremap <A-h> <C-o>
 nnoremap H ^
 
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+"==================================================
+" C++ mode setting
+"==================================================
+au FileType cpp nmap <F7>  :1Texec ebuild<CR>
+au FileType cpp nmap <A-b> :1Ttoggle<CR>
+
+let g:neoterm_default_mod='belowright'
+let g:neoterm_size = 20
 
 "==================================================
 " Rust mode setting
@@ -349,8 +356,8 @@ au FileType rust nmap <F11> :GdbContinue<CR>
 au FileType rust nmap <F23> :GdbUntil<CR>
 au FileType rust nmap <F12> :GdbFinish<CR>
 
-au FileType rust nmap <A-1> :NERDTreeToggle<CR>
-au FileType rust nmap <A-2> :TagbarToggle<CR>
+nmap <A-1> :NERDTreeToggle<CR>
+nmap <A-2> :TagbarToggle<CR>
 au FileType rust nmap <A-3> :GdbCreateWatch info locals<CR>
 
 ""==================================================
@@ -414,7 +421,7 @@ endfunction
 au QuickfixCmdPost make call QfMakeConv()
 
 "" Terminal mode binding
-nnoremap <leader><F3> :terminal<CR>i
+nnoremap <leader><F3> :Tnew<CR>
 tnoremap <F3> <C-\><C-n>
 "" latex
 autocmd Filetype tex setl updatetime=1
@@ -429,3 +436,8 @@ let g:gh_line_map_default = 0
 let g:gh_line_blame_map_default = 1
 let g:gh_line_map = '<leader>gh'
 let g:gh_open_command = 'qutebrowser '
+
+augroup Tex
+  autocmd!
+  autocmd FileType tex set wrap
+augroup END
