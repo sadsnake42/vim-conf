@@ -90,9 +90,9 @@ Plug 'mbbill/undotree'
 
 "------------------=== Latex ===---------------------------------
 Plug 'lervag/vimtex'
-"Plug 'sirver/ultisnips'
-"Plug 'honza/vim-snippets'
-"
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
+
 ""------------------=== Other ===---------------------------------
 Plug 'elzr/vim-json'
 Plug 'godlygeek/tabular'
@@ -296,10 +296,17 @@ nnoremap <A-h> <C-o>
 nnoremap H ^
 
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
 "==================================================
 " C++ mode setting
 "==================================================
+
+au FileType cpp nmap <F1>  :ClangFormat<CR>
+au FileType cpp nmap <F6>  :1Texec etest<CR>
+
 au FileType cpp nmap <F7>  :1Texec ebuild<CR>
+au FileType cpp nmap <F19> :1Texec ebuildr<CR>
+
 au FileType cpp nmap <A-b> :1Ttoggle<CR>
 
 let g:neoterm_default_mod='belowright'
@@ -441,3 +448,4 @@ augroup Tex
   autocmd!
   autocmd FileType tex set wrap
 augroup END
+
