@@ -55,8 +55,13 @@ augroup CustomCursorLine
 augroup END
 
 call plug#begin('~/.config/nvim/plugged')
+"" ------------------=== MyPlugin ===----------------------
+Plug '/home/sad/projects/personal/televim'
+Plug 'segeljakt/vim-silicon'
+
 "" ------------------=== Colorscheme ===----------------------
 Plug 'morhetz/gruvbox'
+Plug 'kristijanhusak/vim-carbon-now-sh'
 
 "" ------------------=== Git ===----------------------
 Plug 'Xuyuanp/nerdtree-git-plugin'  
@@ -102,6 +107,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'kassio/neoterm'
 Plug 'rhysd/vim-clang-format'
@@ -297,20 +303,18 @@ nnoremap H ^
 
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
-"==================================================
-" C++ mode setting
-"==================================================
-
-au FileType cpp nmap <F1>  :ClangFormat<CR>
-au FileType cpp nmap <F6>  :1Texec etest<CR>
-
-au FileType cpp nmap <F7>  :1Texec ebuild<CR>
-au FileType cpp nmap <F19> :1Texec ebuildr<CR>
-
 au FileType cpp nmap <A-b> :1Ttoggle<CR>
 
 let g:neoterm_default_mod='belowright'
 let g:neoterm_size = 20
+
+"==================================================
+" Python mode setting
+"==================================================
+
+au FileType python nmap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+au FileType python nmap <silent> gr :call LanguageClient#textDocument_rename()<CR>
+au FileType python nmap <silent> <leader>- :call LanguageClient#textDocument_codeAction()<CR>
 
 "==================================================
 " Rust mode setting
@@ -449,3 +453,22 @@ augroup Tex
   autocmd FileType tex set wrap
 augroup END
 
+let g:carbon_now_sh_browser = 'qutebrowser'
+let g:silicon = {
+      \ 'theme':                        'GitHub',
+      \ 'font':                           'Hack',
+      \ 'background':                     '#fff',
+      \ 'shadow-color':                   '#555',
+      \ 'line-pad':                            2,
+      \ 'pad-horiz':                          80,
+      \ 'pad-vert':                          100,
+      \ 'shadow-blur-radius':                 50,
+      \ 'shadow-offset-x':                     0,
+      \ 'shadow-offset-y':                     0,
+      \ 'line-number':                    v:true,
+      \ 'round-corner':                   v:true,
+      \ 'window-controls':                v:true,
+      \ }
+
+let g:silicon['output'] = '~/Pictures/silicon/{time:%Y-%m-%d-%H%M%S}.png'
+let g:airline_theme='gruvbox'
