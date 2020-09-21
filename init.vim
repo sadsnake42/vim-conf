@@ -42,9 +42,9 @@ set conceallevel=1
 set incsearch " incremental search
 
 " Underline current cursor line
-set cursorline
 hi clear CursorLine
 hi CursorLine gui=underline cterm=underline
+set cursorline
 
 highlight LineNr ctermfg=grey
 highlight lCursor guifg=NONE guibg=Cyan
@@ -61,6 +61,7 @@ Plug 'segeljakt/vim-silicon'
 
 "" ------------------=== Colorscheme ===----------------------
 Plug 'morhetz/gruvbox'
+Plug 'sjl/badwolf'
 Plug 'kristijanhusak/vim-carbon-now-sh'
 
 "" ------------------=== Git ===----------------------
@@ -111,18 +112,20 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'kassio/neoterm'
 Plug 'rhysd/vim-clang-format'
+Plug 'jamessan/vim-gnupg'
 
 " --- i3 ---
 Plug 'mboughaba/i3config.vim'
 
 """---------------=== Languages support ===-------------
-Plug 'ycm-core/YouCompleteMe'
+"Plug 'ycm-core/YouCompleteMe'
 Plug 'vim-scripts/L9'
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'autozimu/LanguageClient-neovim', {
+"    \ 'branch': 'next',
+"    \ 'do': 'bash install.sh',
+"    \ }
 "
 "
 """ --- Rust ---
@@ -133,7 +136,10 @@ Plug 'rust-lang/rust.vim'
 Plug 'mattn/webapi-vim'
 "
 """ --- Python ---
+Plug 'machakann/vim-highlightedyank'
 ""Plug 'davidhalter/jedi-vim'
+Plug 'tpope/vim-abolish'
+Plug 'numirias/semshi'
 "
 call plug#end()
 
@@ -312,9 +318,10 @@ let g:neoterm_size = 20
 " Python mode setting
 "==================================================
 
-au FileType python nmap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-au FileType python nmap <silent> gr :call LanguageClient#textDocument_rename()<CR>
-au FileType python nmap <silent> <leader>- :call LanguageClient#textDocument_codeAction()<CR>
+au FileType python nmap <F1> :call LanguageClient#textDocument_formatting()<CR>
+au FileType python nmap <silent> gd <Plug>(coc-definition)
+au FileType python nmap <silent> gi <Plug>(coc-implementation)
+au FileType python nmap <silent> gr <Plug>(coc-references)
 
 "==================================================
 " Rust mode setting
@@ -334,13 +341,23 @@ let g:racer_cmd = "/home/sad/.cargo/bin/racer"
 let g:racer_experimental_completer = 1
 let g:racer_insert_paren = 1
 
-nmap <silent> <leader><Insert> :call LanguageClient_contextMenu()<CR>
+nmap <silent> <leader><Insert> :CocCommand<CR>
 let g:cargo_command = "Dispatch cargo {cmd}"
 let g:nvimgdb_disable_start_keymaps=1
 
-au FileType rust nmap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-au FileType rust nmap <silent> gr :call LanguageClient#textDocument_rename()<CR>
-au FileType rust nmap <silent> <leader>- :call LanguageClient#textDocument_codeAction()<CR>
+au FileType rust map <silent> [g <Plug>(coc-diagnostic-prev)
+au FileType rust map <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+au FileType rust map <silent> gd <Plug>(coc-definition)
+au FileType rust map <silent> gi <Plug>(coc-implementation)
+au FileType rust map <silent> gr <Plug>(coc-references)
+
+au FileType rust map <leader> gr <Plug>(coc-rename)
+au FileType rust nmap <leader> -  :CocAction<CR>
+au FileType rust nmap <leader> gf  <Plug>(coc-fix-current)
+
+let g:enable_ycm_at_startup = 0
 
 au FileType rust nmap <F1>  :RustFmt<CR>
 au FileType rust nmap <F13> :AbortDispatch<CR>
@@ -367,7 +384,7 @@ au FileType rust nmap <F11> :GdbContinue<CR>
 au FileType rust nmap <F23> :GdbUntil<CR>
 au FileType rust nmap <F12> :GdbFinish<CR>
 
-nmap <A-1> :NERDTreeToggle<CR>
+nmap <A-1> :NERDTreeFind<CR>
 nmap <A-2> :TagbarToggle<CR>
 au FileType rust nmap <A-3> :GdbCreateWatch info locals<CR>
 
@@ -432,7 +449,7 @@ endfunction
 au QuickfixCmdPost make call QfMakeConv()
 
 "" Terminal mode binding
-nnoremap <leader><F3> :Tnew<CR>
+nnoremap <leader><F3> :Ttoggle<CR>
 tnoremap <F3> <C-\><C-n>
 "" latex
 autocmd Filetype tex setl updatetime=1
@@ -447,11 +464,6 @@ let g:gh_line_map_default = 0
 let g:gh_line_blame_map_default = 1
 let g:gh_line_map = '<leader>gh'
 let g:gh_open_command = 'qutebrowser '
-
-augroup Tex
-  autocmd!
-  autocmd FileType tex set wrap
-augroup END
 
 let g:carbon_now_sh_browser = 'qutebrowser'
 let g:silicon = {
