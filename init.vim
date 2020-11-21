@@ -4,6 +4,7 @@ set nocompatible              " be iMproved, required
 set encoding=utf8
 set fileencoding=utf-8
 scriptencoding utf-8
+set encoding=utf-8
 filetype off                  " required
 set guifont=Fura\ Code\ Medium\ Nerd\ Font\ 20
 set timeoutlen=1000 ttimeoutlen=0
@@ -55,6 +56,7 @@ augroup CustomCursorLine
 augroup END
 
 call plug#begin('~/.config/nvim/plugged')
+
 "" ------------------=== MyPlugin ===----------------------
 Plug '/home/sad/projects/personal/televim'
 Plug 'segeljakt/vim-silicon'
@@ -69,7 +71,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'ruanyl/vim-gh-line'
-"
+
 "" ------------------=== File Navigation ===----------------------
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -92,7 +94,6 @@ Plug 'tpope/vim-surround'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-repeat'
 Plug 'mbbill/undotree'
-"Plug 'mileszs/ack.vim' // don't work
 
 "------------------=== Latex ===---------------------------------
 Plug 'lervag/vimtex'
@@ -113,34 +114,27 @@ Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'kassio/neoterm'
 Plug 'rhysd/vim-clang-format'
 Plug 'jamessan/vim-gnupg'
+Plug 'voldikss/vim-translator'
 
 " --- i3 ---
 Plug 'mboughaba/i3config.vim'
 
 """---------------=== Languages support ===-------------
-"Plug 'ycm-core/YouCompleteMe'
 Plug 'vim-scripts/L9'
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'autozimu/LanguageClient-neovim', {
-"    \ 'branch': 'next',
-"    \ 'do': 'bash install.sh',
-"    \ }
-"
-"
+
 """ --- Rust ---
-"Plug 'AndrewRadev/splitjoin.vim'
+Plug 'uarun/vim-protobuf'
+Plug 'uber/prototool', { 'rtp':'vim/prototool' }
 Plug 'rust-lang/rust.vim'
-"Plug 'racer-rust/vim-racer'
-"Plug 'dense-analysis/ale'
 Plug 'mattn/webapi-vim'
-"
+
 """ --- Python ---
 Plug 'machakann/vim-highlightedyank'
-""Plug 'davidhalter/jedi-vim'
 Plug 'tpope/vim-abolish'
 Plug 'numirias/semshi'
-"
+
 call plug#end()
 
 colorscheme gruvbox
@@ -314,6 +308,11 @@ au FileType cpp nmap <A-b> :1Ttoggle<CR>
 let g:neoterm_default_mod='belowright'
 let g:neoterm_size = 20
 
+" Formatting selected code.
+xmap <leader><F1>  <Plug>(coc-format-selected)
+nmap <leader><F1>  <Plug>(coc-format-selected)
+
+
 "==================================================
 " Python mode setting
 "==================================================
@@ -363,13 +362,14 @@ au FileType rust nmap <F1>  :RustFmt<CR>
 au FileType rust nmap <F13> :AbortDispatch<CR>
 
 au FileType rust nmap <F7>  :Dispatch cargo build<CR>
-au FileType rust nmap <F19> :Dispatch cargo build --tests<CR> 
-au FileType rust nmap <F31> :Dispatch cargo build --release --tests<CR> 
+au FileType rust nmap <F19> :Dispatch cargo build --workspace<CR> 
+au FileType rust nmap <F31> :Dispatch cargo build --workspace --tests<CR> 
 
 au FileType rust nmap <F4>  :Dispatch cargo clippy<CR>
+au FileType rust nmap <F16> :Dispatch cargo clippy --workspace --tests<CR>
 
 au FileType rust nmap <F6>  :Dispatch cargo test<CR>
-au FileType rust nmap <F18> :Dispatch cargo bench<CR>
+au FileType rust nmap <F18> :Dispatch cargo test --workspace<CR>
 
 au FileType rust nmap <F9>  :Cargo run<CR>
 au FileType rust nmap <F21> :GdbStart rust-gdb ./target/debug/
@@ -420,14 +420,13 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 nnoremap <Leader>* :Lines <C-r><C-w><CR>
 nnoremap <Leader># :Rg <C-r><C-w><CR>
 
-nmap <Leader>gb     :Gblame<CR>
-nmap <Leader>gc     :Gcommit<CR>
-nmap <Leader>gs     :Gdiffsplit master<CR>
-nmap <Leader>gp     :terminal git push<CR>
-nmap <Leader>g<S-P> :Gpull<CR>
-nmap <Leader>gw     :Gwrite<CR>
-nmap <Leader>g<S-W> :Gcommit --interactive<CR>
-nmap <Leader>gm     <Plug>(git-messenger)
+nmap <Leader>gb :Gblame<CR>
+nmap <Leader>gc :Gcommit<CR>
+nmap <Leader>gs :Git<CR>
+nmap <Leader>gp :Gpush<CR>
+nmap <Leader>gf :Gfetch<CR>
+nmap <Leader>gw :Gwrite<CR>
+nmap <Leader>gm <Plug>(git-messenger)
 
 let g:git_messenger_include_diff = "all"
 
@@ -484,3 +483,6 @@ let g:silicon = {
 
 let g:silicon['output'] = '~/Pictures/silicon/{time:%Y-%m-%d-%H%M%S}.png'
 let g:airline_theme='gruvbox'
+let g:python3_host_prog = '/usr/bin/python3.8'
+let g:translator_target_lang = "en"
+
